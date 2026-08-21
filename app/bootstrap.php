@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 define('PROJECT_ROOT', dirname(__DIR__));
 
-// --- ДОБАВЬ ЭТОТ БЛОК ---
+// --- Автоподключение классов ---
 spl_autoload_register(function ($class) {
     // Превращаем App\Core\QueryBuilder в app/Core/QueryBuilder.php
     $file = str_replace('\\', '/', $class) . '.php';
