@@ -1,15 +1,20 @@
 <?php
 // admin/contacts.php
 
-global $appUrl, $db;
-include(__DIR__ . '/pageConstract/header.php');
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
-// Получаем данные контактов
-$contacts = $db->get_one('contacts', 4);
+    require_once __DIR__ . '/../app/bootstrap.php';
 
-// Проверяем, есть ли уведомление
-$alert = $_SESSION['alert'] ?? null;
-unset($_SESSION['alert']);
+    include(__DIR__ . '/pageConstract/header.php');
+
+    // Получаем данные контактов
+    $contacts = $db->get_one('contacts', 4);
+
+    // Проверяем, есть ли уведомление
+    $alert = $_SESSION['alert'] ?? null;
+    unset($_SESSION['alert']);
 ?>
 
     <style>

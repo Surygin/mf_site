@@ -1,7 +1,12 @@
 <?php
 // admin/requisites.php
 
-global $appUrl, $db;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once __DIR__ . '/../app/bootstrap.php';
+
 include(__DIR__ . '/pageConstract/header.php');
 
 // Получаем данные реквизитов

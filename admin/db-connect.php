@@ -2,12 +2,12 @@
 
 // admin/db-connect.php
 
-require_once __DIR__ . '/../app/bootstrap.php';
-require_once __DIR__ . '/queryBuilder_oop.php';
-
-if (!isset($db)) {
-    $db = new queryBuilder($pdo);
-}
+//require_once __DIR__ . '/../app/bootstrap.php';
+//require_once __DIR__ . '/queryBuilder_oop.php';
+//
+//if (!isset($db)) {
+//    $db = new queryBuilder($pdo);
+//}
 
 //// admin/db-connect.php
 //
@@ -70,4 +70,4 @@ if (!isset($db)) {
 //if (class_exists('queryBuilder') && !isset($db)) {
 //    $db = new queryBuilder($pdo);
 //}
-//?>
+//

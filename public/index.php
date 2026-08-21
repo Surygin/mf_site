@@ -1,14 +1,13 @@
 <?php
 
+    require_once __DIR__ . '/../app/bootstrap.php';
+
     include('header.php');
 
-    $kids = $db->get_all('kids');
+    $kidService = new \App\Services\KidService($db);
+    $activeKids = $kidService->getActive();
+    $finishedKids = $kidService->getFinished();
 
-    // Секция «Кому нужна помощь»: активные
-    $activeKids = array_filter($kids, fn($k) => $k['is_active'] === 1);
-
-    // Секция «Уже помогли»: завершённые
-    $finishedKids = array_filter($kids, fn($k) => $k['status'] === 'finished');
 
 ?>
 

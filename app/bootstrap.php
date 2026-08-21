@@ -4,6 +4,18 @@ declare(strict_types=1);
 
 define('PROJECT_ROOT', dirname(__DIR__));
 
+// --- ДОБАВЬ ЭТОТ БЛОК ---
+spl_autoload_register(function ($class) {
+    // Превращаем App\Core\QueryBuilder в app/Core/QueryBuilder.php
+    $file = str_replace('\\', '/', $class) . '.php';
+    $path = PROJECT_ROOT . '/' . $file;
+
+    if (file_exists($path)) {
+        require_once $path;
+    }
+});
+// ------------------------
+
 require_once PROJECT_ROOT . '/app/EnvLoader.php';
 
 EnvLoader::load(PROJECT_ROOT . '/.env');

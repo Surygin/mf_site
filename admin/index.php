@@ -1,8 +1,11 @@
 <?php
 // admin/index.php
 
-global $db, $appUrl;
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once __DIR__ . '/../app/bootstrap.php';
 
 // Подключаем header
 if (file_exists(__DIR__ . '/pageConstract/header.php')) {
