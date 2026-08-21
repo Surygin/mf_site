@@ -1,5 +1,8 @@
 <?php
 
+var_dump('ОТКЛЮЧИЛ ЭТОТ СКРИПТ');
+die();
+
 class queryBuilder{
 
     protected $pdo;
