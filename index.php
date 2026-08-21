@@ -4,15 +4,6 @@
 // Подключаем БД
 require_once __DIR__ . '/admin/db-connect.php';
 
-// Создаем объект $db для работы с БД
-if (class_exists('queryBuilder')) {
-    $db = new queryBuilder($pdo);
-} else {
-    die("Класс queryBuilder не найден");
-}
-
-$appUrl = EnvLoader::get('APP_URL', 'http://localhost:8888');
-
 // Определяем, какую страницу запросил пользователь
 $page = $_GET['page'] ?? 'home';
 

@@ -17,6 +17,8 @@ $pdo = $database->getConnection();
 // Создаём экземпляр QueryBuilder — теперь это и есть наш "$db"
 $db = new \App\Core\QueryBuilder($pdo);
 
+$appUrl = EnvLoader::get('APP_URL', 'http://localhost:8888');
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
