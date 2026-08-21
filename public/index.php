@@ -1,4 +1,16 @@
-<?php include('header.php'); ?>
+<?php
+
+    include('header.php');
+
+    $kids = $db->get_all('kids');
+
+    // Секция «Кому нужна помощь»: активные
+    $activeKids = array_filter($kids, fn($k) => $k['is_active'] === 1);
+
+    // Секция «Уже помогли»: завершённые
+    $finishedKids = array_filter($kids, fn($k) => $k['status'] === 'finished');
+
+?>
 
     <section class="main">
         <div class="container">
@@ -16,20 +28,6 @@
                             <p>Быть рядом!</p>
                         </div>
                         <!-- /.main__text-subtitle -->
-                        <style>
-                            .main__btn:hover {
-                                box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-                            }
-
-                            .main__btn-reverse {
-                                color: red;
-                            }
-
-                            .main__btn-reverse:hover {
-                                color: red;
-                                text-decoration: none;
-                            }
-                        </style>
                         <a class="main__btn" style="display: inline-block; margin-bottom: 20px; color: #fff;">Пожертвовать
                             средства</a>
                         <a href="https://t.me/+1l86gq5zIsE0OTAy" class="main__btn main__btn-reverse">Стать&nbsp;волонтером</a>
@@ -60,124 +58,82 @@
                 <div class="col-12 text-center">
                     <h2 class="help__header" id="whu">Кому нужна наша помощь</h2>
                 </div>
-                <!-- /.col-12 -->
             </div>
-            <!-- /.row -->
+
             <?php
-            $kids = $db->get_all('kids');
             $step = 1;
-            foreach ($kids as $kid) {
-
-                if ($kid['is_active'] === 1) { ?>
-                    <div class="row <?php if ($step % 2 === 0) {
-                        echo 'd-flex flex-row-reverse';
-                    } ?>">
-                        <div class="col-md-6 col-12 text-center">
-                            <div class="help__item text-left">
-                                <img class="help_photo" src="/public/<?php echo $kid['avatar'] ?>"
-                                     alt="<?php echo $kid['name'] ?>">
-                                <!--<img class="help_bg" src="/public/img/help/item_help.png" alt="bg">-->
-                                <div class="help__info">
-                                    <p class="help__name"><?php echo $kid['name'] . ' ' . $kid['last_name'] ?></p>
-                                    <p class="help__money d-flex flex-column">
-                                        <span>Внесено пожертвований</span>
-                                        <span><?php echo $kid['sum1'] ?> рублей из</span>
-                                        <span><?php echo $kid['sum2'] ?> рублей </span>
-                                    </p>
-                                    <p>
-                                        <a class="help__link"
-                                          href="<?= $appUrl ?>?page=person&id=<?php echo $kid['id'] ?>">История <?php echo $kid['name'] ?></a>
-                                    </p>
-                                </div>
-                                <!-- /.help__info -->
+            foreach ($activeKids as $kid): ?>
+                <div class="row <?= $step % 2 === 0 ? 'd-flex flex-row-reverse' : '' ?>">
+                    <div class="col-md-6 col-12 text-center">
+                        <div class="help__item text-left">
+                            <img class="help_photo" src="/public/<?= $kid['avatar'] ?>" alt="<?= $kid['name'] . ' ' . $kid['last_name'] ?>">
+                            <div class="help__info">
+                                <p class="help__name"><?= $kid['name'] . ' ' . $kid['last_name'] ?></p>
+                                <p class="help__money d-flex flex-column">
+                                    <span>Внесено пожертвований</span>
+                                    <span><?= $kid['sum1'] ?> рублей из</span>
+                                    <span><?= $kid['sum2'] ?> рублей</span>
+                                </p>
+                                <p>
+                                    <a class="help__link" href="<?= $appUrl ?>?page=person&id=<?= $kid['id'] ?>">История <?= $kid['name'] ?></a>
+                                </p>
                             </div>
-                            <!-- /.help__item -->
                         </div>
-                        <!-- /.col-lg-6 -->
-                        <div class="col-md-6 col-12">
-                            <div class="help__btn d-flex flex-column">
-                                <a class="main__btn" href="person?person=<?php echo $kid['id'] ?>">Сделать
-                                    пожертвование</a>
-                                <a class="main__btn main__btn-reverse" href="https://t.me/+1l86gq5zIsE0OTAy">Помочь
-                                    другим способом</a>
-                                <a class="main__btn main__btn-reverse" href="#">Счет для Юридических лиц</a>
-                            </div>
-                            <!-- /.help__btn -->
-                        </div>
-                        <!-- /.col-lg-6 -->
                     </div>
-                    <!-- /.row -->
-                    <?php $step++;
-                }
-
-            } ?>
-
+                    <div class="col-md-6 col-12">
+                        <div class="help__btn d-flex flex-column">
+                            <a class="main__btn" href="person?person=<?= $kid['id'] ?>">Сделать пожертвование</a>
+                            <a class="main__btn main__btn-reverse" href="https://t.me/+1l86gq5zIsE0OTAy">Помочь другим способом</a>
+                            <a class="main__btn main__btn-reverse" href="#">Счет для Юридических лиц</a>
+                        </div>
+                    </div>
+                </div>
+                <?php $step++; ?>
+            <?php endforeach; ?>
         </div>
-        <!-- /.container -->
     </section>
     <!-- /.help -->
-
     <section class="help mb-5">
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h2 class="help__header" id="whu">Уже помогли</h2>
+                    <h2 class="help__header">Уже помогли</h2>
                 </div>
-                <!-- /.col-12 -->
             </div>
-            <!-- /.row -->
+
             <?php
-            $kids = $db->get_all('kids');
             $step = 1;
-            foreach ($kids as $kid) {
-
-                if ($kid['status'] == 'finished') { ?>
-                    <div class="row <?php if ($step % 2 === 0) {
-                        echo 'd-flex flex-row-reverse';
-                    } ?>">
-                        <div class="col-md-6 col-12 text-center">
-                            <div class="help__item text-left">
-                                <img class="help_photo" src="/public/<?php echo $kid['avatar'] ?>"
-                                     alt="<?php echo $kid['name'] ?>">
-                                <!--<img class="help_bg" src="/public/img/help/item_help.png" alt="bg">-->
-                                <div class="help__info">
-                                    <p class="help__name"><?php echo $kid['name'] . ' ' . $kid['last_name'] ?></p>
-                                    <p class="help__money d-flex flex-column">
-                                        <span>Внесено пожертвований</span>
-                                        <span><?php echo $kid['sum1'] ?> рублей из</span>
-                                        <span><?php echo $kid['sum2'] ?> рублей </span>
-                                    </p>
-                                    <p><a class="help__link"
-                                          href="<?= $appUrl ?>?page=person&id=<?php echo $kid['id'] ?>">История <?php echo $kid['name'] ?></a>
-                                    </p>
-                                </div>
-                                <!-- /.help__info -->
+            foreach ($finishedKids as $kid): ?>
+                <div class="row <?= $step % 2 === 0 ? 'd-flex flex-row-reverse' : '' ?>">
+                    <div class="col-md-6 col-12 text-center">
+                        <div class="help__item text-left">
+                            <img class="help_photo" src="/public/<?= $kid['avatar'] ?>" alt="<?= $kid['name'] . ' ' . $kid['last_name'] ?>">
+                            <div class="help__info">
+                                <p class="help__name"><?= $kid['name'] . ' ' . $kid['last_name'] ?></p>
+                                <p class="help__money d-flex flex-column">
+                                    <span>Внесено пожертвований</span>
+                                    <span><?= $kid['sum1'] ?> рублей из</span>
+                                    <span><?= $kid['sum2'] ?> рублей</span>
+                                </p>
+                                <p>
+                                    <a class="help__link" href="<?= $appUrl ?>?page=person&id=<?= $kid['id'] ?>">История <?= $kid['name'] ?></a>
+                                </p>
                             </div>
-                            <!-- /.help__item -->
                         </div>
-                        <!-- /.col-lg-6 -->
-                        <div class="col-md-6 col-12">
-                            <div class="help__btn d-flex flex-column">
-                                <a class="main__btn" href="#">Сделать пожертвование</a>
-                                <a class="main__btn main__btn-reverse" href="https://t.me/+1l86gq5zIsE0OTAy">Помочь
-                                    другим способом</a>
-                                <a class="main__btn main__btn-reverse" href="#">Счет для Юридических лиц</a>
-                            </div>
-                            <!-- /.help__btn -->
-                        </div>
-                        <!-- /.col-lg-6 -->
                     </div>
-                    <!-- /.row -->
-                    <?php $step++;
-                }
-
-            } ?>
-
+                    <div class="col-md-6 col-12">
+                        <div class="help__btn d-flex flex-column">
+                            <a class="main__btn" href="#">Сделать пожертвование</a>
+                            <a class="main__btn main__btn-reverse" href="https://t.me/+1l86gq5zIsE0OTAy">Помочь другим способом</a>
+                            <a class="main__btn main__btn-reverse" href="#">Счёт для юридических лиц</a>
+                        </div>
+                    </div>
+                </div>
+                <?php $step++; ?>
+            <?php endforeach; ?>
         </div>
-        <!-- /.container -->
     </section>
     <!-- /.help -->
-
     <section class="important">
         <div class="container">
             <div class="row">
@@ -192,7 +148,7 @@
                     <div class="important__msg">
                         <!--<img src="/public/img/important/important_msg.png" alt="картинка">-->
                         <div class="important__msg-text text-center">
-                            <p class="important__msg-title">Делимся важним</p>
+                            <p class="important__msg-title">Делимся важным</p>
                             <p>Фонд Марии Леонтьевой рассматривает разные варианты помощи больным детям. Мы всегда
                                 готовы предоставить любые правоустанавливающие документы фонда, счета и акты, чтобы
                                 сделать вашу помощь «юридически легкой» для вас.</p>
@@ -284,7 +240,7 @@
         <!-- /.container -->
     </section>
     <!-- /.openBook -->
-    <sections class="donations">
+    <section class="donations">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-12">
@@ -318,7 +274,7 @@
             <!-- /.row -->
         </div>
         <!-- /.container -->
-    </sections>
+    </section>
     <!-- /.donations -->
     <section class="offer" id="kid_wizard">
         <div class="container">

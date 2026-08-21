@@ -159,6 +159,19 @@ body {
   color: #575757;
 }
 
+.main__btn:hover {
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.main__btn-reverse {
+  color: red;
+}
+
+.main__btn-reverse:hover {
+  color: red;
+  text-decoration: none;
+}
+
 .active {
   display: block;
 }
