@@ -57,6 +57,7 @@ include 'header.php';
     </section>
     <!-- /.main -->
 
+    <!--  Нужна помощь  -->
     <section class="help" id="help">
         <div class="container">
             <div class="row">
@@ -116,6 +117,7 @@ include 'header.php';
     </section>
     <!-- /.help -->
 
+    <!--  Уже помогли  -->
     <?php if (!empty($finishedKids)): ?>
     <section class="help mb-5">
         <div class="container">
