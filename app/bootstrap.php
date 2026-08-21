@@ -8,7 +8,10 @@ require_once PROJECT_ROOT . '/app/EnvLoader.php';
 
 EnvLoader::load(PROJECT_ROOT . '/.env');
 
-require_once PROJECT_ROOT . '/app/database.php';
+require_once PROJECT_ROOT . '/app/Database.php';
+
+$database = new Database();
+$pdo = $database->getConnection();
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
