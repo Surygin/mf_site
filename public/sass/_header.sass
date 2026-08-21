@@ -1,0 +1,98 @@
+#header__menu
+  width: 30px
+  height: 30px
+  cursor: pointer
+.header
+  margin-bottom: 70px
+  padding-top: 50px
+  color: $footer__color
+  &__menu
+    position: relative
+    &-btn 
+      position: absolute
+      display: block
+      margin-top: 20px
+      width: 30px
+      height: 2px
+      background-color: #232323
+      z-index: 10
+    &-btn::before, &-btn::after
+      content: ''
+      display: block
+      width: 30px
+      height: 2px
+      background-color: #232323
+      transition: 0.5s
+      z-index: 10
+    &-btn::before
+      margin-top: -8px
+    &-btn::after
+      margin-top: 15px
+    .menu
+      &-button
+        span::before
+          transform: translateY(-7px)
+    .menu
+      &-button
+        span::after
+          transform: translateY(5px)
+    .menu
+      &-button__active
+        span
+          height: 0
+    .menu
+      &-button__active
+        span::before
+          transform: rotate(-45deg)
+    .menu
+      &-button__active
+        span::after
+          margin-top: -2px
+          transform: rotate(45deg)
+    &-body 
+      position: fixed
+      top: 0
+      left: 0
+      display: none
+      width: 320px
+      padding-left: 0
+      padding-top: 50px
+      list-style-type: none
+      background: #fff
+      height: 100vh
+      z-index: 11
+      box-shadow: 5px 5px 25px $footer__color
+      li 
+        a 
+          display: inline-block
+          width: 100%
+          padding: 10px 30px
+          padding-left: 30px
+          color: $footer__color
+          text-decoration: none
+          border-bottom: 1px solid #fff
+          transition: all 0.5s
+        a:hover 
+          /*border-bottom: 1px solid $footer__color*/
+          box-shadow: 1px 1px 5px $footer__color
+        .header__menu-close
+          position: absolute
+          width: 20px
+    &-social 
+      ul 
+        padding-left: 0
+        text-align: right
+        li 
+          display: inline-block
+          margin: 5px
+          list-style: none
+    &-contacts 
+      text-align: right
+      font-size: 14px
+      p 
+        margin: 0
+        padding: 0
+        a 
+          color: #575757
+.active
+  display: block

@@ -1,0 +1,26 @@
+.modal
+  display: none
+  position: fixed
+  background-color: rgba(0, 0, 0, 0.5)
+  overflow-y: auto
+  &__btn 
+    &-close
+      position: fixed
+      width: 50px
+      right: 10px
+      top: 10px
+      z-index: 3
+    &-close:hover
+      cursor: pointer
+  .swiper
+    &-slide 
+      img 
+        margin: 50px auto
+        max-height: 90vh
+        max-width: 100%
+  .swiper-button-next, .swiper-button-prev
+    padding: 30px
+    border-radius: 50%
+    color: #171717
+    background-color: rgba(#fff, 0.8)
+    box-shadow: 1px 1px 5px rgba(#171717, 0.2)

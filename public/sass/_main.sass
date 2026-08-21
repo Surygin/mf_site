@@ -1,0 +1,60 @@
+.main 
+  margin-bottom: 100px
+  &__btn
+    font-weight: bold
+    font-size: 15px
+    padding: 10px 20px
+    border-radius: 5px
+    border: 1px solid $btn__color
+    background-color: $btn__color
+    color: #fff
+    cursor: pointer
+    &-reverse
+      background-color: #fff
+      color: $btn__color
+  &__text 
+    padding-top: 70px
+    &-title 
+      padding-right: 30px
+      h1 
+        text-transform: uppercase
+        margin-bottom: 20px
+        font-size: 36px
+        font-weight: 400
+    &-subtitle 
+      p 
+        margin-bottom: 30px
+  &__bg 
+    position: relative
+  &__img 
+    &-bg 
+      width: 100%
+    &-fly
+      position: absolute
+      left: -50px
+      bottom: 40px
+      animation: name 1s ease
+    &-fly2
+      position: absolute
+      right: 0
+      bottom: 0px
+      animation: fly 1s infinite
+      @keyframes fly
+        0%
+          margin-top: 0
+        100%
+          margin-top: -20px
+#heart_1
+  margin-bottom: 30px
+  padding-left: 100px
+#heart_2
+  display: inline
+  padding-left: 30px
+#heart_3
+  position: absolute
+  right: 200px
+  margin-top: -40px
+.person 
+  .main__btn:hover 
+    color: #fff
+    text-decoration: none
