@@ -21,18 +21,14 @@ class Database
             EnvLoader::get('DB_CHARSET', 'utf8mb4')
         );
 
-        $user = EnvLoader::get('DB_USER', '');
-        $pass = EnvLoader::get('DB_PASS', '');
-
-        // ✅ Главное: \PDO и \PDO::... внутри namespace App\Core
-        $this->pdo = new \PDO(
+        $this->pdo = new PDO(
             $dsn,
-            $user,
-            $pass,
+            EnvLoader::get('DB_USER', ''),
+            EnvLoader::get('DB_PASS', ''),
             [
-                \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
-                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-                \PDO::ATTR_EMULATE_PREPARES   => false,
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
             ]
         );
     }
