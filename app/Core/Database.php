@@ -1,0 +1,44 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Core;
+
+use PDO;
+use EnvLoader;
+
+class Database
+{
+    private PDO $pdo;
+
+    public function __construct()
+    {
+        $dsn = sprintf(
+            'mysql:host=%s;port=%s;dbname=%s;charset=%s',
+            EnvLoader::get('DB_HOST', 'localhost'),
+            EnvLoader::get('DB_PORT', '3306'),
+            EnvLoader::get('DB_NAME', ''),
+            EnvLoader::get('DB_CHARSET', 'utf8mb4')
+        );
+
+        $user = EnvLoader::get('DB_USER', '');
+        $pass = EnvLoader::get('DB_PASS', '');
+
+        // ✅ Главное: \PDO и \PDO::... внутри namespace App\Core
+        $this->pdo = new \PDO(
+            $dsn,
+            $user,
+            $pass,
+            [
+                \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+                \PDO::ATTR_EMULATE_PREPARES   => false,
+            ]
+        );
+    }
+
+    public function getConnection(): PDO
+    {
+        return $this->pdo;
+    }
+}

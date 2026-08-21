@@ -2,11 +2,16 @@
 
     require_once __DIR__ . '/../app/bootstrap.php';
 
-    include('header.php');
+    // 1. Создаём репозиторий, передавая туда QueryBuilder ($db)
+    $kidRepo = new \App\Repositories\KidRepository($db);
 
-    $kidService = new \App\Services\KidService($db);
+    // 2. Создаём сервис, передавая ему репозиторий (теперь типы совпадают)
+    $kidService = new \App\Services\KidService($kidRepo);
+
     $activeKids = $kidService->getActive();
     $finishedKids = $kidService->getFinished();
+
+    include 'header.php';
 
 
 ?>
