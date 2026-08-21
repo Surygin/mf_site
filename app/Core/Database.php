@@ -2,20 +2,27 @@
 
 declare(strict_types=1);
 
+namespace App\Core;
+
+use PDO;
+use EnvLoader;
+
 class Database
 {
     private PDO $pdo;
 
     public function __construct()
     {
+        $dsn = sprintf(
+            'mysql:host=%s;port=%s;dbname=%s;charset=%s',
+            EnvLoader::get('DB_HOST', 'localhost'),
+            EnvLoader::get('DB_PORT', '3306'),
+            EnvLoader::get('DB_NAME', ''),
+            EnvLoader::get('DB_CHARSET', 'utf8mb4')
+        );
+
         $this->pdo = new PDO(
-            sprintf(
-                'mysql:host=%s;port=%s;dbname=%s;charset=%s',
-                EnvLoader::get('DB_HOST', 'localhost'),
-                EnvLoader::get('DB_PORT', '3306'),
-                EnvLoader::get('DB_NAME', ''),
-                EnvLoader::get('DB_CHARSET', 'utf8mb4')
-            ),
+            $dsn,
             EnvLoader::get('DB_USER', ''),
             EnvLoader::get('DB_PASS', ''),
             [

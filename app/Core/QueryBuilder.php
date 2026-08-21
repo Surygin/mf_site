@@ -94,4 +94,28 @@ class QueryBuilder
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
         $statement->execute();
     }
+
+    public function get_where(
+        string $table,
+        array $conditions
+    ): array {
+        if (empty($conditions)) {
+            return $this->get_all($table);
+        }
+
+        $where = [];
+
+        foreach (array_keys($conditions) as $field) {
+            $where[] = "{$field} = :{$field}";
+        }
+
+        $whereClause = implode(' AND ', $where);
+
+        $sql = "SELECT * FROM {$table} WHERE {$whereClause}";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute($conditions);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

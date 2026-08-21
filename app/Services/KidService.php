@@ -1,26 +1,23 @@
 <?php
+
 namespace App\Services;
 
-use App\Core\QueryBuilder;
+use App\Repositories\KidRepository;
 
 class KidService
 {
-    private QueryBuilder $db;
-
-    public function __construct(QueryBuilder $db)
-    {
-        $this->db = $db;
+    public function __construct(
+        private KidRepository $kids
+    ) {
     }
 
     public function getActive(): array
     {
-        $all = $this->db->get_all('kids');
-        return array_filter($all, fn($k) => $k['is_active'] === 1);
+        return $this->kids->findActive();
     }
 
     public function getFinished(): array
     {
-        $all = $this->db->get_all('kids');
-        return array_filter($all, fn($k) => $k['status'] === 'finished');
+        return $this->kids->findFinished();
     }
 }
