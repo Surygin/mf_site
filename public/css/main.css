@@ -9,7 +9,7 @@ body {
   color: red;
 }
 .link:hover{
-  color: red;
+  color: darkred;
 }
 
 .big-margin {
@@ -189,6 +189,7 @@ body {
   background-color: #F82A04;
   color: #fff;
   cursor: pointer;
+  transition: all ease-in-out 0.2s;
 }
 
 .main__btn-reverse {
@@ -227,8 +228,9 @@ body {
   position: absolute;
   left: -50px;
   bottom: 40px;
-  -webkit-animation: name 1s ease;
-          animation: name 1s ease;
+  -webkit-animation: fly 1s ease;
+          animation: fly 1s ease;
+  z-index: 2;
 }
 
 .main__img-fly2 {
@@ -357,10 +359,12 @@ body {
 .help__link {
   color: #575757;
   border-bottom: 1px solid #575757;
+  transition: all 0.2s ease-in-out;
 }
 
 .help__link:hover {
-  color: #575757;
+  color: #F82A04;
+  border-bottom: 1px solid #F82A04;
   text-decoration: none;
 }
 
