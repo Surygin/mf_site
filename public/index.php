@@ -13,4 +13,8 @@ $kidService = new KidService($kidRepository);
 
 $controller = new HomeController($kidService);
 
+include 'header.php';
+
 $controller->index();
+
+include 'footer.php';
