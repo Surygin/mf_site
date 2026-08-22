@@ -13,8 +13,8 @@ $kidService = new KidService($kidRepository);
 
 $controller = new HomeController($kidService);
 
-include 'header.php';
+require_once __DIR__ . '/header.php';
 
 $controller->index();
 
-include 'footer.php';
+require_once __DIR__ . '/footer.php';
