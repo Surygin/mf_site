@@ -11,8 +11,8 @@ class Kid
         public ?string $name,
         public ?string $lastName,
         public ?string $history,
-        public ?int $sum1,
-        public ?int $sum2,
+        public ?int $collected_amount,
+        public ?int $target_amount,
         public ?string $avatar,
         public bool $isActive,
     ) {
@@ -33,14 +33,14 @@ class Kid
         return trim(($this->name ?? '') . ' ' . ($this->lastName ?? ''));
     }
 
-    public function getFormattedSum1(): string
+    public function getFormattedCollectedAmount(): string
     {
-        return number_format($this->sum1 ?? 0, 0, '.', ' ');
+        return number_format($this->collected_amount ?? 0, 0, '.', ' ');
     }
 
-    public function getFormattedSum2(): string
+    public function getFormattedTargetAmount(): string
     {
-        return number_format($this->sum2 ?? 0, 0, '.', ' ');
+        return number_format($this->target_amount ?? 0, 0, '.', ' ');
     }
 
 }
