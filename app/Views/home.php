@@ -1,3 +1,8 @@
+<?php
+    $kids = $kidService->getAll();
+
+    var_dump($kids);
+?>
     <section class="main">
         <div class="container">
             <div class="row">
