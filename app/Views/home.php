@@ -65,8 +65,8 @@
                                 <p class="help__money d-flex flex-column">
                                     <span>Внесено пожертвований</span>
                                     <!-- number_format красиво форматирует числа с пробелами -->
-                                    <span><?= htmlspecialchars($kid->getFormattedSum1()) ?> рублей из</span>
-                                    <span><?= htmlspecialchars($kid->getFormattedSum2()) ?> рублей</span>
+                                    <span><?= htmlspecialchars($kid->getFormattedCollectedAmount()) ?> рублей из</span>
+                                    <span><?= htmlspecialchars($kid->getFormattedTargetAmount()) ?> рублей</span>
                                 </p>
                                 <p>
                                     <a class="help__link"
@@ -130,8 +130,8 @@
 
                                 <p class="help__money d-flex flex-column">
                                     <span>Собрано</span>
-                                    <span><?= htmlspecialchars($kid->getFormattedSum1()) ?> рублей из</span>
-                                    <span><?= htmlspecialchars($kid->getFormattedSum2()) ?> рублей</span>
+                                    <span><?= htmlspecialchars($kid->getFormattedCollectedAmount()) ?> рублей из</span>
+                                    <span><?= htmlspecialchars($kid->getFormattedTargetAmount()) ?> рублей</span>
                                 </p>
                                 <p>
                                     <a class="help__link"
